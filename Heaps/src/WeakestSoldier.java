@@ -1,0 +1,38 @@
+import java.util.PriorityQueue;
+public class WeakestSoldier
+{
+    static class Rows implements Comparable<Rows>
+    {
+        int soldiers,idx;
+        public Rows(int soldiers, int idx)
+        {
+            this.soldiers = soldiers;
+            this.idx = idx;
+        }
+        @Override
+        public int compareTo(Rows r2)
+        {
+            if(this.soldiers == r2.soldiers)
+                return this.idx-r2.idx;
+            else
+                return this.soldiers-r2.soldiers;
+        }
+    }
+    public static void main(String[] args)
+    {
+        PriorityQueue<Rows> pq=new PriorityQueue<>();
+        int army[][] = {{1,0,0,0},{1,1,1,1},{1,0,0,0},{1,0,0,0}};
+        int k=2;
+        for(int i=0; i<army.length; i++)
+        {
+            int count = 0;
+            for(int j=0; j<army[0].length; j++)
+            {
+                count += army[i][j];
+            }
+            pq.add(new Rows(count, i));
+        }
+        for(int i=0; i<k; i++)
+            System.out.println("R"+pq.remove().idx);
+    }
+}
